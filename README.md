@@ -19,10 +19,12 @@
 
 ## 📌 Table of Contents
 - [Overview](#-overview)
-- [Key Features by Role](#-key-features-by-role)
-  - [1. Customer Experience](#1-customer-experience)
-  - [2. Pharmacy Staff Portal](#2-pharmacy-staff-portal)
-  - [3. Platform Admin Console](#3-platform-admin-console)
+- [The 4 Platform Roles](#-the-4-platform-roles)
+  - [Role Comparison Matrix](#role-comparison-matrix)
+  - [1. Customer (`customer`)](#1-customer-customer)
+  - [2. Pharmacy Staff (`staff`)](#2-pharmacy-staff-staff)
+  - [3. Pharmacy Owner (`pharmacy_owner`)](#3-pharmacy-owner-pharmacy_owner)
+  - [4. Platform Administrator (`admin`)](#4-platform-administrator-admin)
 - [Architecture & Security](#-architecture--security)
 - [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
@@ -33,7 +35,7 @@
   - [Mobile Builds (Android)](#mobile-builds-android)
 - [Directory Structure](#-directory-structure)
 - [Regulatory & Healthcare Compliance](#-regulatory--healthcare-compliance)
-- [Contributing & License](#-license)
+- [License](#-license)
 
 ---
 
@@ -45,29 +47,102 @@
 3. Track their order status in real time with live pharmacist chat.
 4. Consult an AI-powered health assistant for safe, non-prescription symptom guidance.
 
-Simultaneously, local community pharmacies gain a full digital storefront, live dispatch board, and inventory management tool, while platform administrators govern branch licensing, regulatory catalog guardrails, and audit trails.
+Simultaneously, local community pharmacies gain a comprehensive digital storefront, live order dispatch queue, and inventory replenishment tool, while platform administrators govern branch licensing, regulatory catalog guardrails, and audit trails.
 
 ---
 
-## 🚀 Key Features by Role
+## 👥 The 4 Platform Roles
 
-### 1. Customer Experience (`src/customer/`)
-- **Fast Medicine Discovery**: Live fuzzy search by generic name, brand name, and therapeutic category with rich dosages and indications.
-- **Geolocation & Interactive Maps**: Integrated Leaflet & OpenStreetMap locator showing nearby partner pharmacies, operational status (Open/Closed), and calculated delivery fees.
+CarePoint enforces a strict **4-Role RBAC Model** implemented directly at the PostgreSQL layer with Row Level Security (RLS) policies and client route guards:
+
+```text
+               ┌──────────────────────────────────────────────┐
+               │         Platform Administrator (admin)       │
+               │  - Pharmacy Approvals & FDA Verification     │
+               │  - Master Catalog & OTC / Rx Gatekeeping     │
+               │  - Platform-wide Order Monitor & CMS         │
+               └──────────────────────┬───────────────────────┘
+                                      │
+               ┌──────────────────────▼───────────────────────┐
+               │       Pharmacy Owner (pharmacy_owner)        │
+               │  - Branch Registration & FDA License Owner   │
+               │  - Live Store Open / Closed Control (DB RLS) │
+               │  - Operating Hours, Contact & Storefront     │
+               │  - Branch Sales Revenue & Staff Oversight    │
+               └──────────────────────┬───────────────────────┘
+                                      │
+               ┌──────────────────────▼───────────────────────┐
+               │           Pharmacy Staff (staff)             │
+               │  - Live Order Dispatch (Accept/Ready/Finish) │
+               │  - Shelf Stock Restock & Custom Prices (₱)   │
+               │  - Realtime Customer & Rx Inquiry Chat       │
+               └──────────────────────┬───────────────────────┘
+                                      │
+               ┌──────────────────────▼───────────────────────┐
+               │              Customer (customer)             │
+               │  - Medicine Catalog Search & Geo-Discovery   │
+               │  - Pickup & Delivery Sandbox Checkout        │
+               │  - Live Order Tracking & AI Health Assistant │
+               └──────────────────────────────────────────────┘
+```
+
+### Role Comparison Matrix
+
+| Capability / Permission | Customer | Pharmacy Staff | Pharmacy Owner | Platform Admin |
+| :--- | :---: | :---: | :---: | :---: |
+| **Catalog Browsing & Search** | ✅ | ✅ | ✅ | ✅ |
+| **Place Orders (Pickup & Delivery)** | ✅ | ❌ | ❌ | ❌ |
+| **Live Order Tracking & Customer Chat** | ✅ | ❌ | ❌ | ❌ |
+| **AI Symptom & OTC Assistant** | ✅ | ❌ | ❌ | ❌ |
+| **Accept, Prepare & Dispatch Orders** | ❌ | ✅ | ✅ | ❌ (Read-only) |
+| **Manage Shelf Stock Levels & Selling Price** | ❌ | ✅ | ✅ | ❌ |
+| **Respond to Customer & Rx Inquiries** | ❌ | ✅ | ✅ | ❌ |
+| **Update Storefront Hours, Address & Contact** | ❌ | ❌ | ✅ *(DB RLS)* | ✅ |
+| **Toggle Store Open / Closed Status** | ❌ | ❌ | ✅ *(DB RLS)* | ✅ |
+| **Onboard New Pharmacy Branch** | ❌ | ❌ | ✅ | ✅ |
+| **Branch Revenue & Sales Analytics (GMV)** | ❌ | ✅ (Branch) | ✅ (Branch) | ✅ (Platform) |
+| **Approve / Reject Pharmacy Applications** | ❌ | ❌ | ❌ | ✅ |
+| **Master OTC Catalog & Rx Gatekeeping** | ❌ | ❌ | ❌ | ✅ |
+| **Manage User Roles & Staff Assignments** | ❌ | ❌ | ❌ | ✅ |
+| **CMS Banners & Platform Audit Trail** | ❌ | ❌ | ❌ | ✅ |
+
+---
+
+### 1. Customer (`customer`)
+*User Surface: `src/customer/` (`/customer/home`, `/customer/cart`, `/customer/orders`)*
+- **Fast Medicine Discovery**: Live fuzzy search across authentic OTC products with therapeutic category filters and branch availability.
+- **Geolocation & Interactive Maps**: Integrated Leaflet & OpenStreetMap locator showing nearby partner pharmacies, open/closed status, and calculated delivery fees.
 - **Smart Cart & Checkout**: Multi-branch support with validation against branch operating hours, order types (**Store Pickup** or **Delivery**), and sandbox payment options (Cash on Delivery, GCash/Maya sandbox, Card test).
 - **Live Order Progress Tracker**: Real-time status pipeline (`Pending` → `Confirmed` → `Ready for Pickup / Out for Delivery` → `Completed`) driven by Supabase Realtime without manual refreshing.
-- **Two-Way Pharmacist Messaging**: Direct in-app chat with assigned pharmacy staff for order updates and customer assistance.
+- **Two-Way Pharmacist Messaging**: Direct in-app chat with assigned pharmacy staff for order coordination and customer assistance.
 - **CarePoint AI Health Assistant**: Integrated symptom advisor powered by Google Gemini with strict non-prescription guardrails and automatic offline fallback to verified OTC catalog guidelines.
 - **Account & Address Book**: Saved delivery addresses with GPS coordinates, profile settings, and full historical order receipts.
 
-### 2. Pharmacy Staff Portal (`src/staff/`)
-- **Live Order Dispatch Board**: Real-time incoming order queue featuring sound chime alerts, itemized order breakdown, delivery details, and one-click fulfillment progression (`Accept` → `Ready` → `Complete`).
-- **Shelf & Inventory Management**: Custom retail pricing (`₱`), stock increment/decrement (`-1`, `+1`, `+10`, `+25`), low-stock indicators, and catalog availability toggles.
-- **Inquiry & Prescription Inbox**: Split-screen messaging panel to answer customer stock queries and prescription advice securely.
-- **Storefront Governance**: Toggle store open/closed status instantly, update business hours, and submit branch onboarding requests.
-- **Sales Analytics & Reports**: Live revenue (GMV), average basket size, fulfillment split, top-selling medicines, and one-click CSV report exports.
+---
 
-### 3. Platform Admin Console (`src/admin/`)
+### 2. Pharmacy Staff (`staff`)
+*User Surface: `src/staff/` (`/staff` protected by `StaffRoute`)*
+- **Live Order Dispatch Board**: Real-time incoming order queue featuring sound chime alerts, itemized order breakdown, delivery address details, and one-click fulfillment progression (`Accept` → `Ready` → `Complete`).
+- **Shelf & Inventory Management**: Custom retail pricing (`₱`), stock increment/decrement (`-1`, `+1`, `+10`, `+25`), low-stock indicators, and catalog availability toggles.
+- **Inquiry & Prescription Inbox**: Split-screen messaging panel to answer customer stock queries and prescription advice safely.
+- **Strict Branch Binding**: Enforced via PostgreSQL `public.is_staff_of_pharmacy(pharmacy_id)`. Staff can only access orders and messages for their assigned branch.
+- **Role Isolation**: Staff accounts cannot alter core branch settings, operating hours, or toggle online storefront availability, preserving business ownership controls.
+
+---
+
+### 3. Pharmacy Owner (`pharmacy_owner`)
+*User Surface: `src/staff/` (`/staff` with elevated Owner capabilities)*
+- **All Staff Operational Tools**: Complete access to the Live Dispatch Board, Shelf Inventory Manager, and Customer Inquiry Inbox.
+- **Exclusive Storefront Controls**: Protected directly at the database layer via PostgreSQL policy `public.is_pharmacy_owner_of(pharmacy_id)`:
+  - Toggle store **Open / Closed** availability for the online marketplace.
+  - Update pharmacy branch profile, operational contact numbers, and daily operating hours.
+- **Pharmacy Onboarding & Verification**: Registered applicants who submit branch onboarding applications with authentic FDA License credentials are automatically elevated to `pharmacy_owner` upon platform administrator approval.
+- **Branch Business Intelligence**: Review branch sales metrics, completed gross merchandise value (GMV), average order basket sizes, and export order history to CSV.
+
+---
+
+### 4. Platform Administrator (`admin`)
+*User Surface: `src/admin/` (`/admin` protected by `AdminRoute`)*
 - **Pharmacy Registry & Approvals**: Regulatory verification of submitted pharmacy branches and FDA license numbers, with automated decision emails dispatched via webhook/EmailJS.
 - **Master OTC Gatekeeper**: Governance over 40+ Philippine OTC and Rx medicines, CSV import/export, and strict prescription gatekeeping.
 - **Cross-Branch Order Monitor**: Real-time, read-only supervision of all active orders across all registered pharmacies.
@@ -80,8 +155,9 @@ Simultaneously, local community pharmacies gain a full digital storefront, live 
 ## 🔒 Architecture & Security
 
 - **Strict Surface Isolation**: Customer, Staff, and Admin codebases live in distinct directories (`src/customer/`, `src/staff/`, `src/admin/`) with zero cross-surface client imports. Coordination occurs strictly through the shared Supabase backend.
-- **Database-Level Row Level Security (RLS)**: Authorization is enforced directly in PostgreSQL. Users, pharmacy staff, and administrators can only query and mutate data permitted by cryptographic RLS policies.
-- **OTC Regulatory Enforcement**: Prescription medications (`requires_prescription = true`) are structurally blocked at both the database trigger level and application level from being listed for online checkout.
+- **Database-Level Row Level Security (RLS)**: Authorization is enforced directly in PostgreSQL. Users, pharmacy staff, owners, and administrators can only query and mutate data permitted by cryptographic RLS policies.
+- **Owner vs. Staff Database Guard**: `public.pharmacies` update privileges require `public.is_pharmacy_owner_of(pharmacy_id)`, ensuring ordinary staff members cannot alter store hours or availability.
+- **OTC Regulatory Enforcement**: Prescription medications (`requires_prescription = true`) are structurally blocked at both the database trigger level (`trg_enforce_otc_only_active_inventory`) and application level from being listed for online checkout.
 - **Realtime Push Architecture**: Supabase Realtime websocket channels synchronize order status changes, live chat messages, and stock levels across clients instantly without polling.
 - **Sandbox Financial Transactions**: Checkout flows simulate payments strictly in test/sandbox mode with zero production financial credentials.
 
@@ -200,7 +276,7 @@ CarePoint/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   └── services/
-│   ├── staff/                  # Surface 2: Pharmacy Staff Portal (dispatch, inventory)
+│   ├── staff/                  # Surface 2: Staff & Owner Portal (dispatch, inventory, storefront)
 │   │   ├── StaffApp.tsx
 │   │   ├── staff.css
 │   │   └── services/
