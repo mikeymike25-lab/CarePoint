@@ -1,0 +1,73 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' width='400' height='400'>
+  <defs>
+    <linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#FFF7ED'/>
+      <stop offset='100%' stop-color='#FFFFFF'/>
+    </linearGradient>
+    <linearGradient id='boxGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#C2410C'/>
+      <stop offset='100%' stop-color='#9A3412'/>
+    </linearGradient>
+    <linearGradient id='foilGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#F8FAFC'/>
+      <stop offset='50%' stop-color='#E2E8F0'/>
+      <stop offset='100%' stop-color='#CBD5E1'/>
+    </linearGradient>
+    <filter id='shadow' x='-10%' y='-10%' width='125%' height='125%'>
+      <feDropShadow dx='0' dy='8' stdDeviation='10' flood-color='#9A3412' flood-opacity='0.16'/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width='400' height='400' rx='28' fill='url(#bgGrad)'/>
+  <circle cx='340' cy='60' r='100' fill='#C2410C' opacity='0.05'/>
+  <circle cx='60' cy='340' r='80' fill='#22C55E' opacity='0.08'/>
+
+  <!-- Primary Packaging Box (Background) -->
+  <g filter='url(#shadow)'>
+    <rect x='50' y='50' width='300' height='160' rx='18' fill='url(#boxGrad)' stroke='#C2410C' stroke-width='2'/>
+    
+    <!-- White Header Banner -->
+    <path d='M 50 64 Q 50 50 68 50 L 332 50 Q 350 50 350 64 L 350 105 L 50 105 Z' fill='#FFFFFF'/>
+    <text x='70' y='88' font-family='system-ui, -apple-system, sans-serif' font-size='24' font-weight='900' fill='#C2410C' letter-spacing='-0.5'>Berocca Performance</text>
+    
+    <!-- Rx / OTC Tag -->
+    <rect x='250' y='65' width='80' height='24' rx='6' fill='#059669'/>
+         <text x='290' y='81' font-family='system-ui, sans-serif' font-size='10' font-weight='800' fill='#FFFFFF' text-anchor='middle'>100% OTC</text>
+
+    <!-- Product Subtitle -->
+    <text x='70' y='132' font-family='system-ui, sans-serif' font-size='13' font-weight='700' fill='#FFFFFF'>B-Complex + Vitamin C + Calcium + Magnesium + Zinc</text>
+    <text x='70' y='152' font-family='system-ui, sans-serif' font-size='11' font-weight='600' fill='#F8FAFC' opacity='0.9'>Effervescent Tablet • Vitamins</text>
+    
+    <!-- Manufacturer Seal -->
+    <rect x='70' y='170' width='110' height='20' rx='5' fill='#FFFFFF' fill-opacity='0.2'/>
+    <text x='125' y='184' font-family='system-ui, sans-serif' font-size='9' font-weight='800' fill='#FFFFFF' text-anchor='middle'>BAYER</text>
+  </g>
+
+  <!-- Dynamic Foreground Medicine Graphic -->
+  
+      <!-- Medicine Bottle Foreground -->
+      <g filter='url(#shadow)'>
+        <!-- Bottle Cap -->
+        <rect x='165' y='145' width='70' height='25' rx='6' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+        <line x1='175' y1='145' x2='175' y2='170' stroke='#E2E8F0' stroke-width='2'/>
+        <line x1='190' y1='145' x2='190' y2='170' stroke='#E2E8F0' stroke-width='2'/>
+        <line x1='205' y1='145' x2='205' y2='170' stroke='#E2E8F0' stroke-width='2'/>
+        <line x1='220' y1='145' x2='220' y2='170' stroke='#E2E8F0' stroke-width='2'/>
+        
+        <!-- Bottle Neck -->
+        <rect x='178' y='170' width='44' height='15' fill='#94A3B8' opacity='0.5'/>
+        
+        <!-- Bottle Body -->
+        <rect x='140' y='185' width='120' height='160' rx='16' fill='#F8FAFC' stroke='#94A3B8' stroke-width='2'/>
+        
+        <!-- Bottle Label -->
+        <rect x='145' y='210' width='110' height='115' rx='8' fill='#FFFFFF' stroke='#E2E8F0'/>
+        <text x='200' y='235' font-family='system-ui, sans-serif' font-size='13' font-weight='900' fill='#C2410C' text-anchor='middle'>Berocca</text>
+        <text x='200' y='252' font-family='system-ui, sans-serif' font-size='8' font-weight='700' fill='#475569' text-anchor='middle'>B-Complex</text>
+        <text x='200' y='270' font-family='system-ui, sans-serif' font-size='7.5' font-weight='600' fill='#9A3412' text-anchor='middle'>Effervescent Tablet</text>
+        <rect x='160' y='290' width='80' height='16' rx='4' fill='#C2410C'/>
+        <text x='200' y='301' font-family='system-ui, sans-serif' font-size='8' font-weight='800' fill='#FFFFFF' text-anchor='middle'>AUTHENTIC</text>
+      </g>
+    
+</svg>

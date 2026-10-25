@@ -1,0 +1,351 @@
+/* ============================================================================
+   CarePoint Pharmacy Staff Portal — Light Healthcare Theme
+   Matches Customer App & Admin Console (#F8FAFC canvas, #0D9488 Teal-600, rounded-2xl cards)
+   ============================================================================ */
+
+.ops-staff-root {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0f172a;
+  background-color: var(--bg-app, #f8fafc);
+}
+
+/* Ensure Side Panel (IonMenu) is always vertically scrollable */
+ion-menu ion-content {
+  --overflow: auto !important;
+  --background: #ffffff !important;
+}
+
+ion-menu ion-content::part(scroll) {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure Upper Nav (IonHeader / IonToolbar) always has a solid white fill */
+#staff-main-content > ion-header,
+#staff-main-content > ion-header ion-toolbar {
+  --background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+#staff-main-content > ion-header ion-toolbar::part(background) {
+  background: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Cards & Sections match Customer App rounded-2xl white cards */
+.ops-staff-root section,
+.ops-staff-root .bg-white.border {
+  border-radius: 1rem !important;
+  border-color: #f1f5f9 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Buttons inside Staff Portal & Staff Modals */
+.ops-staff-root button,
+.ops-staff-modal button {
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #334155;
+}
+
+.ops-staff-root button:hover,
+.ops-staff-modal button:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.ops-staff-root button:active,
+.ops-staff-modal button:active {
+  transform: scale(0.98);
+}
+
+.ops-staff-root button:disabled,
+.ops-staff-modal button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Primary Teal-600 Buttons */
+.ops-staff-root button.bg-teal-700,
+.ops-staff-root button.bg-teal-600,
+.ops-staff-root button.bg-slate-900,
+.ops-staff-modal button.bg-teal-700,
+.ops-staff-modal button.bg-teal-600,
+.ops-staff-modal button.bg-slate-900 {
+  background-color: #0d9488 !important;
+  border-color: #0d9488 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.18) !important;
+}
+
+.ops-staff-root button.bg-teal-700:hover,
+.ops-staff-root button.bg-teal-600:hover,
+.ops-staff-root button.bg-slate-900:hover,
+.ops-staff-modal button.bg-teal-700:hover,
+.ops-staff-modal button.bg-teal-600:hover,
+.ops-staff-modal button.bg-slate-900:hover {
+  background-color: #0f766e !important;
+  border-color: #0f766e !important;
+}
+
+/* Soft Teal Secondary Buttons */
+.ops-staff-root button.bg-teal-50,
+.ops-staff-modal button.bg-teal-50 {
+  background-color: #f0fdfa !important;
+  border-color: #99f6e4 !important;
+  color: #0f766e !important;
+}
+
+/* Emerald / Complete / Approve Buttons */
+.ops-staff-root button.bg-emerald-700,
+.ops-staff-root button.bg-emerald-600,
+.ops-staff-modal button.bg-emerald-700,
+.ops-staff-modal button.bg-emerald-600 {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+.ops-staff-root button.bg-emerald-700:hover,
+.ops-staff-root button.bg-emerald-600:hover,
+.ops-staff-modal button.bg-emerald-700:hover,
+.ops-staff-modal button.bg-emerald-600:hover {
+  background-color: #059669 !important;
+}
+
+/* Blue / Ready Action Buttons */
+.ops-staff-root button.bg-sky-600,
+.ops-staff-modal button.bg-sky-600 {
+  background-color: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+.ops-staff-root button.bg-sky-600:hover,
+.ops-staff-modal button.bg-sky-600:hover {
+  background-color: #0369a1 !important;
+}
+
+/* Danger / Rose Buttons */
+.ops-staff-root button.bg-rose-700,
+.ops-staff-root button.bg-rose-600,
+.ops-staff-modal button.bg-rose-700,
+.ops-staff-modal button.bg-rose-600 {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.ops-staff-root button.bg-rose-700:hover,
+.ops-staff-root button.bg-rose-600:hover,
+.ops-staff-modal button.bg-rose-700:hover,
+.ops-staff-modal button.bg-rose-600:hover {
+  background-color: #dc2626 !important;
+}
+
+/* Segmented Filter Controls */
+.ops-staff-seg {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  background-color: #f1f5f9 !important;
+  padding: 0.3rem !important;
+  border-radius: 0.875rem !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.ops-staff-seg button {
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 0.625rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+  background-color: transparent !important;
+  color: #64748b !important;
+  box-shadow: none !important;
+}
+
+.ops-staff-seg button:hover {
+  color: #0f172a !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ops-staff-seg button.ops-staff-seg-active,
+.ops-staff-seg button.bg-white {
+  background-color: #ffffff !important;
+  color: #0d9488 !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Mobile Bottom Tab Bar */
+.ops-staff-bottom-nav {
+  background-color: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.04) !important;
+}
+
+.ops-staff-bottom-nav button {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.35rem 0.25rem !important;
+  border: none !important;
+  background-color: transparent !important;
+  color: #94a3b8 !important;
+  font-size: 0.6875rem !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+
+.ops-staff-bottom-nav button:hover {
+  background-color: transparent !important;
+  color: #0d9488 !important;
+}
+
+.ops-staff-bottom-nav button.ops-staff-bottom-active {
+  color: #0d9488 !important;
+  font-weight: 700 !important;
+}
+
+/* Inputs, Selects, Textareas */
+.ops-staff-root input[type="text"],
+.ops-staff-root input[type="email"],
+.ops-staff-root input[type="tel"],
+.ops-staff-root input[type="number"],
+.ops-staff-root select,
+.ops-staff-root textarea,
+.ops-staff-modal input[type="text"],
+.ops-staff-modal input[type="email"],
+.ops-staff-modal input[type="tel"],
+.ops-staff-modal input[type="number"],
+.ops-staff-modal select,
+.ops-staff-modal textarea {
+  font-family: inherit;
+  padding: 0.5rem 0.85rem !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.4 !important;
+}
+
+.ops-staff-root input.pl-9 {
+  padding-left: 2.25rem !important;
+}
+
+.ops-staff-root select {
+  padding-right: 1.5rem !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+
+.ops-staff-root input:focus,
+.ops-staff-root select:focus,
+.ops-staff-root textarea:focus,
+.ops-staff-modal input:focus,
+.ops-staff-modal select:focus,
+.ops-staff-modal textarea:focus {
+  outline: none !important;
+  border-color: #0d9488 !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12) !important;
+}
+
+/* Data Tables: Clean on Desktop, Stacked Cards on Mobile (< 768px) */
+.ops-staff-root table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ops-staff-root table th {
+  padding: 0.75rem 1rem !important;
+  font-size: 0.6875rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #64748b !important;
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  white-space: nowrap !important;
+}
+
+.ops-staff-root table td {
+  padding: 0.8rem 1rem !important;
+  font-size: 0.8125rem !important;
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  vertical-align: middle !important;
+}
+
+@media (min-width: 992px) {
+  .ops-staff-bottom-nav {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .ops-staff-root table thead {
+    display: none !important;
+  }
+
+  .ops-staff-root table,
+  .ops-staff-root table tbody {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .ops-staff-root table tbody tr {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem 0.75rem !important;
+    padding: 0.9rem 1rem !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    background-color: #ffffff !important;
+  }
+
+  .ops-staff-root table tbody td {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    padding: 0 !important;
+    border: none !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    word-break: break-word !important;
+  }
+
+  .ops-staff-root table tbody td:last-child {
+    width: 100% !important;
+    justify-content: flex-end !important;
+    padding-top: 0.65rem !important;
+    margin-top: 0.25rem !important;
+    border-top: 1px dashed #e2e8f0 !important;
+  }
+
+  .ops-staff-root table tbody td:last-child > div {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+}

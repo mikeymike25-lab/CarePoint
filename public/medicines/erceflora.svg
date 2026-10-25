@@ -1,0 +1,60 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' width='400' height='400'>
+  <defs>
+    <linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#EFF6FF'/>
+      <stop offset='100%' stop-color='#FFFFFF'/>
+    </linearGradient>
+    <linearGradient id='boxGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#2563EB'/>
+      <stop offset='100%' stop-color='#1D4ED8'/>
+    </linearGradient>
+    <linearGradient id='foilGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#F8FAFC'/>
+      <stop offset='50%' stop-color='#E2E8F0'/>
+      <stop offset='100%' stop-color='#CBD5E1'/>
+    </linearGradient>
+    <filter id='shadow' x='-10%' y='-10%' width='125%' height='125%'>
+      <feDropShadow dx='0' dy='8' stdDeviation='10' flood-color='#1D4ED8' flood-opacity='0.16'/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width='400' height='400' rx='28' fill='url(#bgGrad)'/>
+  <circle cx='340' cy='60' r='100' fill='#2563EB' opacity='0.05'/>
+  <circle cx='60' cy='340' r='80' fill='#93C5FD' opacity='0.08'/>
+
+  <!-- Primary Packaging Box (Background) -->
+  <g filter='url(#shadow)'>
+    <rect x='50' y='50' width='300' height='160' rx='18' fill='url(#boxGrad)' stroke='#2563EB' stroke-width='2'/>
+    
+    <!-- White Header Banner -->
+    <path d='M 50 64 Q 50 50 68 50 L 332 50 Q 350 50 350 64 L 350 105 L 50 105 Z' fill='#FFFFFF'/>
+    <text x='70' y='88' font-family='system-ui, -apple-system, sans-serif' font-size='24' font-weight='900' fill='#2563EB' letter-spacing='-0.5'>Erceflora Gut Defense</text>
+    
+    <!-- Rx / OTC Tag -->
+    <rect x='250' y='65' width='80' height='24' rx='6' fill='#059669'/>
+         <text x='290' y='81' font-family='system-ui, sans-serif' font-size='10' font-weight='800' fill='#FFFFFF' text-anchor='middle'>100% OTC</text>
+
+    <!-- Product Subtitle -->
+    <text x='70' y='132' font-family='system-ui, sans-serif' font-size='13' font-weight='700' fill='#FFFFFF'>Bacillus clausii Spores</text>
+    <text x='70' y='152' font-family='system-ui, sans-serif' font-size='11' font-weight='600' fill='#F8FAFC' opacity='0.9'>2 Billion / 5mL Oral Suspension • Digestive</text>
+    
+    <!-- Manufacturer Seal -->
+    <rect x='70' y='170' width='110' height='20' rx='5' fill='#FFFFFF' fill-opacity='0.2'/>
+    <text x='125' y='184' font-family='system-ui, sans-serif' font-size='9' font-weight='800' fill='#FFFFFF' text-anchor='middle'>SANOFI</text>
+  </g>
+
+  <!-- Dynamic Foreground Medicine Graphic -->
+  
+      <!-- Product Box Foreground -->
+      <g filter='url(#shadow)'>
+        <rect x='90' y='180' width='220' height='150' rx='14' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+        <rect x='90' y='180' width='220' height='36' rx='14' fill='#2563EB'/>
+        <text x='200' y='204' font-family='system-ui, sans-serif' font-size='14' font-weight='900' fill='#FFFFFF' text-anchor='middle'>Erceflora Gut Defense</text>
+        <text x='200' y='240' font-family='system-ui, sans-serif' font-size='10' font-weight='700' fill='#1E293B' text-anchor='middle'>Bacillus clausii Spores</text>
+        <text x='200' y='260' font-family='system-ui, sans-serif' font-size='8.5' font-weight='600' fill='#1D4ED8' text-anchor='middle'>2 Billion / 5mL Oral Suspension</text>
+        <rect x='130' y='285' width='140' height='24' rx='6' fill='#EFF6FF' stroke='#2563EB' stroke-width='1'/>
+        <text x='200' y='301' font-family='system-ui, sans-serif' font-size='8.5' font-weight='800' fill='#2563EB' text-anchor='middle'>5mL tamper-evident plastic vial</text>
+      </g>
+    
+</svg>

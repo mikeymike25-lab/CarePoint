@@ -1,0 +1,224 @@
+@import "@ionic/react/css/core.css" layer(base);
+@import "@ionic/react/css/normalize.css" layer(base);
+@import "@ionic/react/css/structure.css" layer(base);
+@import "@ionic/react/css/typography.css" layer(base);
+@import "@ionic/react/css/padding.css" layer(base);
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0D9488; /* Teal 600 */
+  --color-primary-light: #CCFBF1; /* Teal 100 */
+  --color-accent: #0284C7; /* Sky 600 */
+  
+  --color-success: #10B981; /* Emerald 500 */
+  --color-warning: #F59E0B; /* Amber 500 */
+  --color-danger: #EF4444; /* Red 500 */
+  
+  --color-bg-app: #F8FAFC; /* Slate 50 */
+}
+
+@layer base {
+  :root {
+    --bg-app: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --ion-color-primary: #0D9488;
+    --ion-color-primary-rgb: 13, 148, 136;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #0c8278;
+    --ion-color-primary-tint: #259f94;
+    --ion-tab-bar-color-selected: #0D9488;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-app);
+    color: #0F172A; /* Slate 900 */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Universal button normalization for modern sleek appearance */
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+  }
+
+  /* Hide scrollbar for horizontal scrolling lists */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* CarePoint Reusable Button Helpers */
+.carepoint-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #0D9488;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.875rem;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.carepoint-btn-primary:hover {
+  background-color: #0c8278;
+}
+.carepoint-btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* ============================================================
+   Desktop Layout & Universal Scrollbar Removal
+   ============================================================ */
+
+/* 1. Universal scrollbar removal for sleek modern feel without native black bars */
+*, *::before, *::after {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* 2. Ionic Shadow DOM scroll containers */
+ion-content::part(scroll) {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* 3. Compact Side Menu & Split Pane Width */
+ion-split-pane {
+  --side-width: 240px !important;
+  --side-min-width: 220px !important;
+  --side-max-width: 240px !important;
+  --border: 1px solid #f1f5f9 !important;
+}
+
+ion-split-pane > ion-menu {
+  --width: 240px !important;
+  --max-width: 240px !important;
+  min-width: 220px !important;
+  max-width: 240px !important;
+  width: 240px !important;
+}
+
+ion-menu {
+  --width: 240px !important;
+  --max-width: 240px !important;
+  width: 240px !important;
+}
+
+ion-menu ion-content {
+  --overflow: auto !important;
+}
+
+/* 4. Hide redundant bottom tab bar when side menu is active on desktop (992px+) */
+@media (min-width: 992px) {
+  ion-tab-bar {
+    display: none !important;
+  }
+}
+
+/* Ensure buttons have pointer cursor and inherit typography */
+button {
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+/* Global Animations & Transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Micro-interactions */
+.interactive-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.interactive-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+}
+.interactive-card:active {
+  transform: scale(0.98);
+}
+
+.interactive-btn {
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.interactive-btn:active {
+  transform: scale(0.96);
+}

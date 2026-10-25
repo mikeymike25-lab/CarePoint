@@ -1,0 +1,59 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+
+# Production build artifacts
+dist/
+dist-ssr/
+
+# Local Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Vercel
+.vercel/
+
+# Editor and OS directories
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Android & Capacitor native artifacts
+android/.gradle/
+android/build/
+android/app/build/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/local.properties
+android/.idea/
+*.apk
+*.aab
+
+# Supabase CLI local cache and metadata
+supabase/.temp/
+supabase/.branches/
+
+# Internal documentation and development tracking (excluded from public repo)
+ADMIN.md
+STAFF.md
+AGENTS.md
+PLAN.md
+docs/
